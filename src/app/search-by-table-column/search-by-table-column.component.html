@@ -1,0 +1,61 @@
+<app-inspector
+  (newItemEvent)="getPath($event)"
+  style="float: right"
+  [selectedNode]="selectedNode"
+  [model]="model"
+  (removeNode)="removeNode($event)"
+></app-inspector>
+<div class="container">
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <mat-label> Table </mat-label>
+      <input
+        formControlName="table"
+        matInput
+        type="text"
+        [matAutocomplete]="auto"
+      />
+      <mat-autocomplete
+        #auto="matAutocomplete"
+        (optionSelected)="getColNames($event.option.value)"
+        [displayWith]="displayTblFn.bind(this)"
+      >
+        <mat-option *ngFor="let table of filteredTblOptions" [value]="table.id">
+          {{ table.description }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <br />
+    <mat-form-field>
+      <mat-label> Column </mat-label>
+      <input
+        formControlName="column"
+        matInput
+        type="text"
+        [matAutocomplete]="autoCol"
+      />
+      <mat-autocomplete
+        #autoCol="matAutocomplete"
+        [displayWith]="displayColFn.bind(this)"
+      >
+        <mat-option
+          *ngFor="let column of filteredColOptions"
+          [value]="column.id"
+        >
+          {{ column.description }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <br />
+    <button class="btn ui-button-text-icon-primary" type="submit">
+      Get Graph
+    </button>
+  </form>
+</div>
+<br />
+<br />
+<br />
+<app-diagram
+  [model]="model"
+  (nodeClicked)="setSelectedNode($event)"
+></app-diagram>

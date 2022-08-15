@@ -1,0 +1,16 @@
+<form *ngIf="selectedNode">
+  Name: <input name="name" [(ngModel)]="data.name" readonly /> Parent:
+  <input name="parent" [(ngModel)]="data.parentName" readonly />
+  <button mat-button [matMenuTriggerFor]="menu" #menuTrigger>Menu</button>
+  <button *ngIf="ifFile()" type="button" (click)="getPathClicked(data)">
+    Get Full Path
+  </button>
+</form>
+
+<mat-menu #menu="matMenu">
+  <!-- <button mat-menu-item (click)="openDialogCreate(data)">Create Link</button> -->
+  <!-- <button mat-menu-item (click)="openDialog()">Update Link</button> -->
+  <button *ngIf="data.link" mat-menu-item (click)="openDialogDelete(data)">
+    Delete Link
+  </button>
+</mat-menu>
