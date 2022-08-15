@@ -1,0 +1,11 @@
+.tabs {
+  display: inline-block;
+  background-color: rgb(236, 234, 234);
+  border-radius: 4px;
+  width: 100%;
+  position: sticky;
+  z-index: 1000;
+}
+.active-link {
+  color: #f20b22;
+}
