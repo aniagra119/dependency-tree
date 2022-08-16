@@ -151,7 +151,7 @@ export class DiagramComponent {
               { font: '9pt  Segoe UI,sans-serif', stroke: 'white' },
               { name: 'Parent', row: 2, column: 3 },
               // we include a name so we can access this TextBlock when deleting Nodes/Links
-              new go.Binding('text', 'parent', function (v) {
+              new go.Binding('text', 'parentId', function (v) {
                 return 'Parent: ' + v;
               })
             )

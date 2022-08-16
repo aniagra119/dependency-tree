@@ -28,6 +28,7 @@ export class DirServicesService {
             parent: item.parent == fileId ? value.key : item.parent + 400000,
             id: item.id + 400000,
             isClicked: false,
+            parentId: item.parent + 400000,
           };
         });
       })

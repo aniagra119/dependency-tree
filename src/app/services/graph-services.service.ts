@@ -43,6 +43,7 @@ export class GraphServicesService {
             parent: item.parent + addParent,
             id: item.id + addId,
             link: item.link,
+            parentId: item.parent + addParent,
             pathClicked: false,
           };
         });
