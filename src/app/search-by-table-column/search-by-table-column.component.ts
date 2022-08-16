@@ -105,10 +105,27 @@ export class SearchByTableColumnComponent implements OnInit {
       this.child.reload(new go.TreeModel(this.data));
     });
   }
-
+  addUnique(arr, data, parent) {
+    let index = arr
+      .map(function (e) {
+        return e.id;
+      })
+      .lastIndexOf(data.id);
+    if (index !== -1) {
+      data.key = arr[index].key + 10000;
+      data.parent = parent;
+    }
+    return data;
+  }
   getPath(newItem) {
     this.service3.getPathService(newItem).subscribe((response) => {
-      Array.prototype.push.apply(this.data, response);
+      console.log(newItem);
+      let parent = newItem.key;
+      response.forEach((el) => {
+        let item = this.addUnique(this.data, el, parent);
+        this.data.push(item);
+        parent = item.key;
+      });
       this.child.reload(new go.TreeModel(this.data));
     });
   }

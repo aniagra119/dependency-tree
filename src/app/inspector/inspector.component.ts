@@ -30,6 +30,7 @@ export class InspectorComponent {
     key: null,
     parentName: null,
     link: null,
+    selected: true,
   };
 
   public popup = false;
@@ -97,6 +98,7 @@ export class InspectorComponent {
     dialogRef.afterClosed().subscribe((value) => {
       if (value) {
         this.sendDeleteMessage();
+        this._selectedNode = null;
       }
     });
   }
