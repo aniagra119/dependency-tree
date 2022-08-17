@@ -8,11 +8,20 @@ import {
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatMenuTrigger } from '@angular/material/menu';
 import * as go from 'gojs';
-import { _ } from 'lodash';
 
 import { DeleteDialogComponent } from './../admin/dialogs/delete-dialog/delete-dialog.component';
 import { CreateDialogComponent } from '../admin/dialogs/create-dialog/create-dialog.component';
 
+export interface Data {
+  name: string;
+  parent: number;
+  id: number;
+  pathClicked: boolean;
+  key: number;
+  parentName: string;
+  link: number;
+  selected: boolean;
+}
 @Component({
   selector: 'app-inspector',
   templateUrl: './inspector.component.html',
@@ -22,18 +31,7 @@ export class InspectorComponent {
   @ViewChild('menuTrigger') menuTrigger: MatMenuTrigger;
 
   public _selectedNode: go.Node;
-  public data = {
-    name: null,
-    parent: null,
-    id: null,
-    pathClicked: null,
-    key: null,
-    parentName: null,
-    link: null,
-    selected: true,
-  };
-
-  public popup = false;
+  public data: Data;
 
   @Input()
   public model: go.Model;
@@ -46,7 +44,9 @@ export class InspectorComponent {
   @Output() newItemEvent = new EventEmitter<string>();
   @Output() removeNode = new EventEmitter<go.Node>();
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog) {
+    this.data.selected = true;
+  }
 
   set selectedNode(node: go.Node) {
     if (node && node != null) {
