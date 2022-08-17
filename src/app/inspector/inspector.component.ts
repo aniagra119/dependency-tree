@@ -11,17 +11,8 @@ import * as go from 'gojs';
 
 import { DeleteDialogComponent } from './../admin/dialogs/delete-dialog/delete-dialog.component';
 import { CreateDialogComponent } from '../admin/dialogs/create-dialog/create-dialog.component';
+import { NodeData } from '../interfaces/inspectorData';
 
-export interface NodeData {
-  name?: string;
-  parent?: number;
-  id?: number;
-  pathClicked?: boolean;
-  key?: number;
-  parentName?: string;
-  link?: number;
-  selected: boolean;
-}
 @Component({
   selector: 'app-inspector',
   templateUrl: './inspector.component.html',

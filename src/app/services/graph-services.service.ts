@@ -2,13 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, skipWhile, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-
-export interface GraphData {
-  id: number;
-  description: string;
-  parent: number;
-  link: number;
-}
+import { List } from '../interfaces/listData';
 
 @Injectable({
   providedIn: 'root',
@@ -25,7 +19,7 @@ export class GraphServicesService {
       : `?tblId=${tblId - 100000}`;
     return this.http.get(`${this.baseUrl}/getlinktbl/${query}`).pipe(
       map((response: []) => {
-        return response.map((item: GraphData) => {
+        return response.map((item: List) => {
           let addId, addParent;
           if (!item.parent) {
             addId = 100000;

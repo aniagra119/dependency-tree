@@ -2,16 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, skipWhile, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-
-export interface ColList {
-  id: [];
-  description: string;
-}
-
-export interface TblList {
-  id: number;
-  description: string;
-}
+import { List } from '../interfaces/listData';
 
 @Injectable({
   providedIn: 'root',
@@ -22,7 +13,7 @@ export class TblColServicesService {
   getTblData() {
     return this.http.get(`${this.baseUrl}/gettblname`).pipe(
       map((response: []) =>
-        response.map((item: TblList) => {
+        response.map((item: List) => {
           return { description: item.description, id: item.id + 100000 };
         })
       )
@@ -33,7 +24,7 @@ export class TblColServicesService {
     const query = id ? `?tblId=${id - 100000}` : ``;
     return this.http.get(`${this.baseUrl}/getcolname/${query}`).pipe(
       map((response: []) => {
-        return response.map((item: ColList) => {
+        return response.map((item: List) => {
           return {
             id: item.id.map((i) => i + 200000),
             description: item.description,
