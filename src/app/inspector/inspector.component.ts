@@ -12,14 +12,14 @@ import * as go from 'gojs';
 import { DeleteDialogComponent } from './../admin/dialogs/delete-dialog/delete-dialog.component';
 import { CreateDialogComponent } from '../admin/dialogs/create-dialog/create-dialog.component';
 
-export interface Data {
-  name: string;
-  parent: number;
-  id: number;
-  pathClicked: boolean;
-  key: number;
-  parentName: string;
-  link: number;
+export interface NodeData {
+  name?: string;
+  parent?: number;
+  id?: number;
+  pathClicked?: boolean;
+  key?: number;
+  parentName?: string;
+  link?: number;
   selected: boolean;
 }
 @Component({
@@ -31,7 +31,7 @@ export class InspectorComponent {
   @ViewChild('menuTrigger') menuTrigger: MatMenuTrigger;
 
   public _selectedNode: go.Node;
-  public data: Data;
+  public data: NodeData = { selected: true };
 
   @Input()
   public model: go.Model;
@@ -44,9 +44,7 @@ export class InspectorComponent {
   @Output() newItemEvent = new EventEmitter<string>();
   @Output() removeNode = new EventEmitter<go.Node>();
 
-  constructor(public dialog: MatDialog) {
-    this.data.selected = true;
-  }
+  constructor(public dialog: MatDialog) {}
 
   set selectedNode(node: go.Node) {
     if (node && node != null) {

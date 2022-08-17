@@ -25,23 +25,6 @@ export class DiagramComponent {
       allowDelete: false,
       //initialAutoScale: go.Diagram.Uniform,
       maxSelectionCount: 1, // users can select only one part at a time
-      validCycle: go.Diagram.CycleDestinationTree, // make sure users can only create trees
-      'clickCreatingTool.archetypeNodeData': {
-        // allow double-click in background to create a new node
-        name: '(new person)',
-        title: '',
-        comments: '',
-      },
-      'clickCreatingTool.insertPart': function (loc) {
-        // override to scroll to the new node
-        const node = go.ClickCreatingTool.prototype.insertPart.call(this, loc);
-        if (node !== null) {
-          this.diagram.select(node);
-          this.diagram.commandHandler.scrollToPart(node);
-          this.diagram.commandHandler.editTextBlock(node.findObject('NAMETB'));
-        }
-        return node;
-      },
       layout: $(go.TreeLayout, {
         isOngoing: true,
         treeStyle: go.TreeLayout.StyleLastParents,
@@ -167,7 +150,6 @@ export class DiagramComponent {
 
     this.diagram.model = this.model;
 
-    // when the selection changes, emit event to app-component updating the selected node
     this.diagram.addDiagramListener('ChangedSelection', (e) => {
       const node = this.diagram.selection.first();
       this.nodeClicked.emit(node);

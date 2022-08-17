@@ -28,9 +28,9 @@ export class SearchByTableColumnComponent implements OnInit {
 
   formGroup: FormGroup;
   constructor(
-    private service1: TblColServicesService,
-    private service2: GraphServicesService,
-    private service3: DirServicesService,
+    private tblColService: TblColServicesService,
+    private graphService: GraphServicesService,
+    private dirService: DirServicesService,
     private fb: FormBuilder
   ) {}
 
@@ -85,22 +85,24 @@ export class SearchByTableColumnComponent implements OnInit {
   }
 
   getTblNames() {
-    this.service1.getTblData().subscribe((response) => {
+    this.tblColService.getTblData().subscribe((response) => {
       this.tblOptions = response;
       this.filteredTblOptions = response;
     });
   }
 
   getColNames(tblId) {
-    this.service1.getColData(tblId ? tblId : null).subscribe((response) => {
-      this.colOptions = response;
-      this.filteredColOptions = response;
-      // console.log(response);
-    });
+    this.tblColService
+      .getColData(tblId ? tblId : null)
+      .subscribe((response) => {
+        this.colOptions = response;
+        this.filteredColOptions = response;
+        // console.log(response);
+      });
   }
 
   onSubmit() {
-    this.service2.getGraph(this.formGroup.value).subscribe((response) => {
+    this.graphService.getGraph(this.formGroup.value).subscribe((response) => {
       this.data = response;
       this.child.reload(new go.TreeModel(this.data));
     });
@@ -118,7 +120,7 @@ export class SearchByTableColumnComponent implements OnInit {
     return data;
   }
   getPath(newItem) {
-    this.service3.getPathService(newItem).subscribe((response) => {
+    this.dirService.getPathService(newItem).subscribe((response) => {
       console.log(newItem);
       let parent = newItem.key;
       response.forEach((el) => {
